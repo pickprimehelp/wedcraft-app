@@ -1,4 +1,4 @@
-name: Build Android APK
+  name: Build Android APK
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
       - name: Generate Fresh Flutter App Architecture
         run: |
           rm -rf lib pubspec.yaml
-          flutter create . --platforms=android --org=com.wedcraft.app
+          flutter create . --platforms=android --org=com.wedcraft.app --project-name=wedcraft_app
           
           cat << 'EOF' > lib/main.dart
           import 'package:flutter/material.dart';
@@ -231,6 +231,56 @@ jobs:
                                     decoration: const InputDecoration(labelText: "Bride Name", border: OutlineInputBorder()),
                                     onChanged: (val) => setState(() {}),
                                   ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            TextField(
+                              controller: dateController,
+                              decoration: const InputDecoration(labelText: "Wedding Date", border: OutlineInputBorder()),
+                              onChanged: (val) => setState(() {}),
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2C0003)),
+                                  onPressed: () => setState(() => cardBgColor = const Color(0xFF2C0003)),
+                                  child: const Text("Red"),
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF002C1E)),
+                                  onPressed: () => setState(() => cardBgColor = const Color(0xFF002C1E)),
+                                  child: const Text("Green"),
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF1E002C)),
+                                  onPressed: () => setState(() => cardBgColor = const Color(0xFF1E002C)),
+                                  child: const Text("Purple"),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }
+          }
+          EOF
+
+      - name: Build Release APK
+        run: flutter build apk --release
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wedcraft-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+                   ),
                                 ),
                               ],
                             ),
