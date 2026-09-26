@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const WedCraftApp());
@@ -27,7 +26,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('WedCraft Studio', style: GoogleFonts.cinzel(fontWeight: FontWeight.bold)),
+        title: const Text('WedCraft Studio', style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: const Color(0xFF800020),
       ),
       body: Padding(
@@ -85,7 +84,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             Icon(icon, size: 48, color: Colors.white),
             const SizedBox(height: 10),
-            Text(title, style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           ],
         ),
       ),
@@ -113,7 +112,7 @@ class _CardEditorScreenState extends State<CardEditorScreen> {
   TextEditingController dateController = TextEditingController(text: "25 DECEMBER 2026");
 
   Color cardBgColor = const Color(0xFF2C0003);
-  Offset textOffset = const Offset(40, 150);
+  Offset textOffset = const Offset(50, 140);
 
   @override
   Widget build(BuildContext context) {
@@ -132,14 +131,15 @@ class _CardEditorScreenState extends State<CardEditorScreen> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          // Canvas Area
-          Expanded(
-            child: Center(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 15),
+            // Canvas Area
+            Center(
               child: Container(
                 width: 280,
-                height: 400,
+                height: 380,
                 decoration: BoxDecoration(
                   color: cardBgColor,
                   borderRadius: BorderRadius.circular(16),
@@ -168,9 +168,15 @@ class _CardEditorScreenState extends State<CardEditorScreen> {
                         },
                         child: Column(
                           children: [
-                            Text(groomController.text, style: GoogleFonts.greatVibes(color: Colors.white, fontSize: 36)),
-                            const Text("&", style: TextStyle(color: Color(0xFFD4AF37), fontSize: 20)),
-                            Text(brideController.text, style: GoogleFonts.greatVibes(color: Colors.white, fontSize: 36)),
+                            Text(
+                              groomController.text,
+                              style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
+                            ),
+                            const Text("&", style: TextStyle(color: Color(0xFFD4AF37), fontSize: 22)),
+                            Text(
+                              brideController.text,
+                              style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
+                            ),
                             const SizedBox(height: 8),
                             Text(dateController.text, style: const TextStyle(color: Colors.white70, fontSize: 11)),
                           ],
@@ -181,67 +187,69 @@ class _CardEditorScreenState extends State<CardEditorScreen> {
                 ),
               ),
             ),
-          ),
 
-          // Customization Controls
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: const BoxDecoration(
-              color: Colors.black54,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: groomController,
-                        decoration: const InputDecoration(labelText: "Groom Name", border: OutlineInputBorder()),
-                        onChanged: (val) => setState(() {}),
+            const SizedBox(height: 15),
+
+            // Customization Controls
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: const BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: groomController,
+                          decoration: const InputDecoration(labelText: "Groom Name", border: OutlineInputBorder()),
+                          onChanged: (val) => setState(() {}),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: TextField(
-                        controller: brideController,
-                        decoration: const InputDecoration(labelText: "Bride Name", border: OutlineInputBorder()),
-                        onChanged: (val) => setState(() {}),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: TextField(
+                          controller: brideController,
+                          decoration: const InputDecoration(labelText: "Bride Name", border: OutlineInputBorder()),
+                          onChanged: (val) => setState(() {}),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                TextField(
-                  controller: dateController,
-                  decoration: const InputDecoration(labelText: "Wedding Date", border: OutlineInputBorder()),
-                  onChanged: (val) => setState(() {}),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2C0003)),
-                      onPressed: () => setState(() => cardBgColor = const Color(0xFF2C0003)),
-                      child: const Text("Royal Red"),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF002C1E)),
-                      onPressed: () => setState(() => cardBgColor = const Color(0xFF002C1E)),
-                      child: const Text("Emerald"),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF1E002C)),
-                      onPressed: () => setState(() => cardBgColor = const Color(0xFF1E002C)),
-                      child: const Text("Royal Purple"),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: dateController,
+                    decoration: const InputDecoration(labelText: "Wedding Date", border: OutlineInputBorder()),
+                    onChanged: (val) => setState(() {}),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2C0003)),
+                        onPressed: () => setState(() => cardBgColor = const Color(0xFF2C0003)),
+                        child: const Text("Red"),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF002C1E)),
+                        onPressed: () => setState(() => cardBgColor = const Color(0xFF002C1E)),
+                        child: const Text("Green"),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF1E002C)),
+                        onPressed: () => setState(() => cardBgColor = const Color(0xFF1E002C)),
+                        child: const Text("Purple"),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
