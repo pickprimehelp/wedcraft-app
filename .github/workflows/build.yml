@@ -11,8 +11,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.x'
-      - run: flutter create . --platforms=android
+          flutter-version: '3.22.0'
+      - run: |
+          if [ ! -f "pubspec.yaml" ]; then
+            flutter create . --platforms=android
+          fi
       - run: flutter pub get
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
